@@ -5,6 +5,9 @@
 
 package crypto
 
+const shaKeyRounds = 1234
+const bits = 8
+
 var vault [TwofishKeysize]byte
 var valid bool
 
@@ -13,31 +16,16 @@ func init() {
 }
 
 func Push(p []byte) {
+	var i int
+	var l uint32
 	var tmp TfKey
-	var lp, lv = len(p), len(tmp)
-	var i, j int
-	if lp == lv { // equal size
-		copy(vault[:], p)
-	} else {
-		if lp > lv { // password longer than vault
-			j = 0
-			for i = 0; i < lv; i++ {
-				tmp[i] = p[i]
-			}
-			for i = lv; i < lp; i++ {
-				tmp[j] = tmp[j] + p[i]
-				j++
-			}
-		} else { // vault longer than password
-			j = 0
-			for i = 0; i < lv; i++ {
-				if j >= lp {
-					j = 0
-				}
-				tmp[i] = p[j]
-				j++
-			}
-		}
+	sha := NewSha512()
+	buffer := sha.Compute(p)
+	for i = 0; i < shaKeyRounds; i++ {
+		buffer = sha.Compute(buffer[:])
+	}
+	for l = 0; l < TwofishKeysize; l++ {
+		tmp[l] = buffer[l] + buffer[l+TwofishKeysize]
 	}
 	vault = encode(tmp)
 	Validate()
@@ -59,8 +47,6 @@ func Validate() {
 func IsValid() bool {
 	return valid
 }
-
-const bits = 8
 
 func encode(b TfKey) TfKey {
 	var c TfKey
