@@ -43,18 +43,18 @@ func DecryptPayload(payload []byte) (string, string) {
 		data := make([]byte, len(payload))
 		copy(data, payload)
 		if len(data) < len(dataPrefix) {
-			return "", assets.ErrNoZydeco
+			return "", assets.ErrNoMatch
 		}
 		for i := 0; i < len(dataPrefix); i++ {
 			if dataPrefix[i] != data[i] {
-				return "", assets.ErrNoZydeco
+				return "", assets.ErrNoMatch
 			}
 		}
 		if len(data) == len(dataPrefix) {
 			return "", "" //empty Zydeco file
 		}
 		if len(data) < tokenSize+len(dataPrefix)+Sha512Shabytes+1 {
-			return "", assets.ErrCorruptedZydeco
+			return "", assets.ErrCorrupted
 		}
 		data = data[len(dataPrefix):]
 		shaCheck := data[:Sha512Shabytes]
