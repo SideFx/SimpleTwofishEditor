@@ -13,6 +13,7 @@ import (
 )
 
 var registeredFonts []unison.FontFaceDescriptor
+var titleIcons []*unison.Image
 
 func registerFonts() {
 	var desc unison.FontFaceDescriptor
@@ -137,4 +138,16 @@ func initMenuHandler() {
 			lockBtn.Click()
 		},
 	}
+}
+
+func prepareTitleIcon() {
+	newImage, err := unison.NewImageFromBytes(assets.Lock, 1)
+	if err == nil {
+		titleIcons = append(titleIcons, newImage)
+	}
+}
+
+func newImageFromBytes() (*unison.Image, error) {
+	newImage, err := unison.NewImageFromBytes(assets.Gopher, 1)
+	return newImage, err
 }

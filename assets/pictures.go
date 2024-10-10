@@ -9,3 +9,6 @@ import _ "embed"
 
 //go:embed gopher.png
 var Gopher []byte
+
+//go:embed lock.png
+var Lock []byte

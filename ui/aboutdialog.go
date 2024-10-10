@@ -10,6 +10,7 @@ import (
 	"SimpleTwofishEditor/assets"
 	"github.com/richardwilkes/unison"
 	"github.com/richardwilkes/unison/enums/align"
+	"runtime"
 	"strings"
 )
 
@@ -20,6 +21,11 @@ func AboutDialog(item unison.MenuItem) {
 	if err == nil {
 		wnd := dialog.Window()
 		wnd.SetTitle(item.Title())
+		if runtime.GOOS == "windows" {
+			if len(titleIcons) > 0 {
+				wnd.SetTitleIcons(titleIcons)
+			}
+		}
 		okButton = dialog.Button(unison.ModalResponseOK)
 		okButton.ClickCallback = func() {
 			dialog.StopModal(unison.ModalResponseOK)
@@ -111,9 +117,4 @@ func breakTextIntoLabels(panel *unison.Panel, text string, font unison.Font, add
 			}
 		}
 	}
-}
-
-func newImageFromBytes() (*unison.Image, error) {
-	newImage, err := unison.NewImageFromBytes(assets.Gopher, 1)
-	return newImage, err
 }
