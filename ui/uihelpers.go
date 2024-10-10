@@ -10,7 +10,6 @@ import (
 	"SimpleTwofishEditor/assets"
 	"github.com/richardwilkes/unison"
 	"github.com/richardwilkes/unison/enums/align"
-	"runtime"
 )
 
 var registeredFonts []unison.FontFaceDescriptor
@@ -84,13 +83,11 @@ func installDefaultMenus(wnd *unison.Window) {
 	unison.DefaultMenuFactory().BarForWindow(wnd, func(m unison.Menu) {
 		unison.InsertStdMenus(m, AboutDialog, nil, nil)
 		fileMenu := m.Menu(unison.FileMenuID)
-		if runtime.GOOS == "darwin" {
-			fileMenu.RemoveAll()
-		}
 		f := fileMenu.Factory()
 		fileMenu.InsertItem(0, FileNewAction.NewMenuItem(f))
 		fileMenu.InsertItem(1, FileOpenAction.NewMenuItem(f))
 		fileMenu.InsertItem(2, FileSaveAction.NewMenuItem(f))
+		fileMenu.InsertSeparator(3, true)
 		editMenu := m.Menu(unison.EditMenuID)
 		e := editMenu.Factory()
 		editMenu.InsertSeparator(-1, true)
