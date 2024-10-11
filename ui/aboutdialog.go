@@ -42,7 +42,7 @@ func newAboutPanel() *unison.Panel {
 		VSpacing: unison.StdVSpacing,
 	})
 	breakTextIntoLabels(panel, assets.TxtAboutSimpleTwofishEditor, unison.LabelFont.Face().Font(10), false)
-	img, err := newImageFromBytes()
+	img, err := prepareLogo()
 	if err == nil {
 		picture := unison.NewLabel()
 		picture.Drawable = img

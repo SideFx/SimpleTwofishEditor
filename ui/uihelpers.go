@@ -147,7 +147,7 @@ func prepareTitleIcon() {
 	}
 }
 
-func newImageFromBytes() (*unison.Image, error) {
+func prepareLogo() (*unison.Image, error) {
 	newImage, err := unison.NewImageFromBytes(assets.Gopher, 1)
 	return newImage, err
 }
