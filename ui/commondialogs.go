@@ -11,7 +11,6 @@ import (
 	"errors"
 	"github.com/richardwilkes/toolbox/errs"
 	"github.com/richardwilkes/unison"
-	"runtime"
 )
 
 func dialogToSaveChanges() int {
@@ -24,10 +23,8 @@ func dialogToSaveChanges() int {
 		} else {
 			wnd := dialog.Window()
 			wnd.SetTitle(assets.CapSaveChanges)
-			if runtime.GOOS == "windows" {
-				if len(titleIcons) > 0 {
-					wnd.SetTitleIcons(titleIcons)
-				}
+			if len(titleIcons) > 0 {
+				wnd.SetTitleIcons(titleIcons)
 			}
 			return dialog.RunModal()
 		}
@@ -52,10 +49,8 @@ func dialogToDisplaySystemError(primary string, detail error) {
 	} else {
 		wnd := dialog.Window()
 		wnd.SetTitle(assets.CapError)
-		if runtime.GOOS == "windows" {
-			if len(titleIcons) > 0 {
-				wnd.SetTitleIcons(titleIcons)
-			}
+		if len(titleIcons) > 0 {
+			wnd.SetTitleIcons(titleIcons)
 		}
 		dialog.RunModal()
 	}
@@ -69,10 +64,8 @@ func dialogToDisplayErrorMessage(primary string, detail string) {
 	} else {
 		wnd := dialog.Window()
 		wnd.SetTitle(assets.CapError)
-		if runtime.GOOS == "windows" {
-			if len(titleIcons) > 0 {
-				wnd.SetTitleIcons(titleIcons)
-			}
+		if len(titleIcons) > 0 {
+			wnd.SetTitleIcons(titleIcons)
 		}
 		dialog.RunModal()
 	}

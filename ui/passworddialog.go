@@ -11,7 +11,6 @@ import (
 	"SimpleTwofishEditor/crypto"
 	"github.com/richardwilkes/unison"
 	"github.com/richardwilkes/unison/enums/align"
-	"runtime"
 )
 
 const (
@@ -45,10 +44,8 @@ func newPasswordDialog() (*unison.Dialog, error) {
 		unison.NotResizableWindowOption())
 	if err == nil {
 		wnd := dialog.Window()
-		if runtime.GOOS == "windows" {
-			if len(titleIcons) > 0 {
-				wnd.SetTitleIcons(titleIcons)
-			}
+		if len(titleIcons) > 0 {
+			wnd.SetTitleIcons(titleIcons)
 		}
 		if dialogMode == PwdSet {
 			wnd.SetTitle(assets.CapPwdSet)

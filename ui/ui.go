@@ -18,7 +18,6 @@ import (
 	"io"
 	"os"
 	"path"
-	"runtime"
 	"strconv"
 )
 
@@ -93,10 +92,8 @@ func NewMainWindow() error {
 	// Create editor
 	content.AddChild(createEditorPanel())
 	prepareTitleIcon()
-	if runtime.GOOS == "windows" {
-		if len(titleIcons) > 0 {
-			mainWindow.SetTitleIcons(titleIcons)
-		}
+	if len(titleIcons) > 0 {
+		mainWindow.SetTitleIcons(titleIcons)
 	}
 	mainWindow.Pack()
 	// Set MainWindow size & position

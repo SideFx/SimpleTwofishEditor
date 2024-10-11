@@ -10,7 +10,6 @@ import (
 	"SimpleTwofishEditor/assets"
 	"github.com/richardwilkes/unison"
 	"github.com/richardwilkes/unison/enums/align"
-	"runtime"
 	"strings"
 )
 
@@ -21,10 +20,8 @@ func AboutDialog(item unison.MenuItem) {
 	if err == nil {
 		wnd := dialog.Window()
 		wnd.SetTitle(item.Title())
-		if runtime.GOOS == "windows" {
-			if len(titleIcons) > 0 {
-				wnd.SetTitleIcons(titleIcons)
-			}
+		if len(titleIcons) > 0 {
+			wnd.SetTitleIcons(titleIcons)
 		}
 		okButton = dialog.Button(unison.ModalResponseOK)
 		okButton.ClickCallback = func() {
